@@ -11,9 +11,11 @@ function Board(props) {
     )
   })
   return(
-    <React.Fragment>
+
+    <tbody>
       {todoList}
-    </React.Fragment>
+    </tbody>
+
   )
 }
 export default Board
