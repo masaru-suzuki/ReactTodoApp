@@ -6,6 +6,7 @@ function Board(props) {
       <Row
         key = {todo.id}
         todo = {todo}
+        deleteRow = {props.deleteRow}
       />
     )
   })

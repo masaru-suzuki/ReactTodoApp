@@ -8,7 +8,7 @@ function Row(props) {
       <td>{props.todo.deadline}</td>
       <td>{props.todo.importance}</td>
       <td>{props.todo.completedAt}</td>
-      <td><a href="#" className="btn btn-secondary btn-sm delete">X</a></td>
+      <td><a href="#" className="btn btn-secondary btn-sm delete" onClick={() => props.deleteRow(props.todo)}>X</a></td>
       </tr>
   )
 }
