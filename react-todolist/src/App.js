@@ -3,7 +3,6 @@ import './App.css';
 import todoList from './TodoList.js'
 import Board from './Board.js'
 
-const clearBtn = document.getElementById('clear-btn');
 class App extends React.Component {
   constructor() {
     super();
@@ -11,8 +10,38 @@ class App extends React.Component {
       todoList : todoList
     }
     this.deleteRow = this.deleteRow.bind(this);
+    this.clearCompletedTask = this.clearCompletedTask.bind(this);
+    this.checkAction = this.checkAction.bind(this);
   }
-  //ここにcleartodoListメソッドを作ってそれをclearCompletedTaskに写すのかどう分けたらいいのか考える
+  //check入れたらisDone=>false,completedAtにcheckした日付を入れる、行をグレーにする
+  checkAction(todo) {
+    //toggle checkbox
+    this.setState(prevState => {
+      const todoList = prevState.todoList.map(todo => {
+        return(
+          {id: todo.id, title: todo.title, deadline: todo.deadline, importance: todo.importance,completedAt: todo.completedAt, isDone: todo.isDone}
+        )
+      })
+      const position = prevState.todoList.map(todo => {
+        return todo.id
+      }).indexOf(todo.id)
+      todoList[position].isDone = !todoList[position].isDone
+      console.log(todoList[position].isDone)
+      return{
+        todoList: todoList
+      }
+    })
+  }
+  clearCompletedTask() {
+    this.setState(prevState => {
+      const todoList = prevState.todoList.filter(todo => {
+        return !todo.isDone
+      })
+      return{
+        todoList : todoList
+      }
+    })
+  }
   deleteRow (todo) {
     this.setState(prevState => {
       const todoList = prevState.todoList.map(todo => {
@@ -82,9 +111,10 @@ class App extends React.Component {
           <Board 
             todoList = {this.state.todoList}
             deleteRow = {this.deleteRow}
+            checkAction = {this.checkAction}
           />
         </table>
-        <button id="clear-btn" className="clear-btn btn bg-secondary btn-sm">all clear complete task</button>
+        <button id="clear-btn" className="clear-btn btn bg-secondary btn-sm" onClick={this.clearCompletedTask}>all clear complete task</button>
       </div>
     )
   }

@@ -7,6 +7,7 @@ function Board(props) {
         key = {todo.id}
         todo = {todo}
         deleteRow = {props.deleteRow}
+        checkAction = {props.checkAction}
       />
     )
   })

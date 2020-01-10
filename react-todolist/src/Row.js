@@ -3,7 +3,7 @@ import React from 'react';
 function Row(props) {
   return(
     <tr>
-      <td><input type="checkbox" className="checkbox"/></td>
+      <td><input type="checkbox" className="checkbox" onChange={()=>{{props.checkAction(props.todo)}}}/></td>
       <td>{props.todo.title}</td>
       <td>{props.todo.deadline}</td>
       <td>{props.todo.importance}</td>
