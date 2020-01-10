@@ -15,8 +15,8 @@ class App extends React.Component {
   }
   //check入れたらisDone=>false,completedAtにcheckした日付を入れる、行をグレーにする
   checkAction(todo) {
-    //toggle checkbox
     this.setState(prevState => {
+      //Toggle checkbox
       const todoList = prevState.todoList.map(todo => {
         return(
           {id: todo.id, title: todo.title, deadline: todo.deadline, importance: todo.importance,completedAt: todo.completedAt, isDone: todo.isDone}
@@ -27,6 +27,13 @@ class App extends React.Component {
       }).indexOf(todo.id)
       todoList[position].isDone = !todoList[position].isDone
       console.log(todoList[position].isDone)
+
+      //Show completed date
+      todoList[position].isDone?todoList[position].completedAt = new Date().toLocaleDateString():todoList[position].completedAt = ''
+      //Fill checked Row
+      const target = document.getElementById(todoList[position].id)
+      todoList[position].isDone?target.classList.add('checked'):target.classList.remove('checked')
+
       return{
         todoList: todoList
       }
