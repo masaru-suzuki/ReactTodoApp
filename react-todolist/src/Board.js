@@ -12,11 +12,24 @@ function Board(props) {
     )
   })
   return(
-
-    <tbody>
-      {todoList}
-    </tbody>
-
+    <React.Fragment>
+      <table className="table mt-5">
+      <thead>
+        <tr>
+          <th>check</th>
+          <th>todo</th>
+          <th id="sort-deadline">deadline<i className="fas fa-sort"></i></th>
+          <th id="sort-importance">importance <i className="fas fa-sort"></i></th>
+          <th>Completion date</th>
+          <th>Delete button</th>
+        </tr>
+      </thead>
+      <tbody>
+        {todoList}
+      </tbody>
+    </table>
+    <button id="clear-btn" className="clear-btn btn bg-secondary btn-sm" onClick={()=> {props.clearCompletedTask(props.todo)}}>all clear complete task</button>
+    </React.Fragment>
   )
 }
 export default Board
