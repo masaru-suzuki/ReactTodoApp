@@ -138,6 +138,15 @@ class App extends React.Component {
       }
     })
   }
+  componentDidUpdate() {
+    localStorage.setItem('todoList',JSON.stringify(this.state.todoList))
+  }
+  componentDidMount() {
+    this.setState({
+        todoList: JSON.parse(localStorage.getItem('todoList'))
+    })
+
+  }
   render() {
     return(
       <div className="container container-form mt-5">
