@@ -1,10 +1,11 @@
 import React from 'react';
 import Row from './Row'
 function Board(props) {
-  const todoList = props.todoList.map(todo => {
+  const todoList = props.todoList.map((todo, i) => {
     return(
       <Row
         key = {todo.id}
+        index={i}
         todo = {todo}
         deleteRow = {props.deleteRow}
         checkAction = {props.checkAction}
@@ -12,7 +13,7 @@ function Board(props) {
     )
   })
   return(
-    <React.Fragment>
+    <>
       <table className="table mt-5">
       <thead>
         <tr>
@@ -28,8 +29,8 @@ function Board(props) {
         {todoList}
       </tbody>
     </table>
-    <button id="clear-btn" className="clear-btn btn bg-secondary btn-sm" onClick={()=> {props.clearCompletedTask(props.todo)}}>all clear complete task</button>
-    </React.Fragment>
+    <button id="clear-btn" className="clear-btn btn bg-secondary btn-sm" onClick={()=> {props.clearCompletedTask(props.index)}}>all clear complete task</button>
+    </>
   )
 }
 export default Board
