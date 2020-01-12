@@ -24,12 +24,3 @@ export const initialTodoList = [
     isDone: false,
   },
 ]
-
-export const getDefaultTodoItem = () => ({
-  id: '',
-  title: '',
-  deadline: '',
-  importance: '',
-  completedAt: '',
-  isDone: false,
-})

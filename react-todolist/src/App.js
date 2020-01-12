@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { initialTodoList, getDefaultTodoItem } from './TodoList.js'
+import { initialTodoList } from './TodoList.js'
 import Board from './Board.js'
 import TodoForm from './TodoForm.js'
 
@@ -8,15 +8,7 @@ class App extends React.Component {
   currentId = 0
   state = {
     todoList: initialTodoList,
-    todoItem: {
-      id: '',
-      title: '',
-      deadline: '',
-      importance: '',
-      completedAt: '',
-      isDone: false,
-    },
-    newTodo: getDefaultTodoItem(),
+    newTodo: this._getDefaultTodoItem(),
   }
 
   handleChange = event =>
@@ -32,7 +24,7 @@ class App extends React.Component {
     const newTodo = { id: this.currentId, ...this.state.newTodo }
     this.setState({ todoList: [...this.state.todoList, newTodo] })
     this._resetForm()
-    this._incrementId()
+    this._incrementCurrentId()
   }
 
   checkAction = index => {
@@ -75,8 +67,18 @@ class App extends React.Component {
     )
   }
 
-  _incrementId = () => this.currentId++
-  _resetForm = () => this.setState({ newTodo: getDefaultTodoItem() })
+  _incrementCurrentId = () => this.currentId++
+  _resetForm = () => this.setState({ newTodo: this._getDefaultTodoItem() })
+  _getDefaultTodoItem() {
+    return {
+      id: '',
+      title: '',
+      deadline: '',
+      importance: '',
+      completedAt: '',
+      isDone: false,
+    }
+  }
 }
 
 export default App
