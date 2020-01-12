@@ -3,11 +3,12 @@ import shortId from 'shortid'
 import './App.css'
 import Board from './Board.js'
 import TodoForm from './TodoForm.js'
+import { getDefaultTodoItem } from './todo-list'
 
 class App extends React.Component {
   state = {
     todoList: [],
-    newTodo: this._getDefaultTodoItem(),
+    newTodo: getDefaultTodoItem(),
   }
 
   componentDidMount = () => this._initTodoList()
@@ -67,25 +68,15 @@ class App extends React.Component {
     )
   }
 
-  _syncLS() {
+  _syncLS = () => {
     localStorage.setItem('todoList', JSON.stringify(this.state.todoList))
   }
 
-  _initTodoList() {
+  _initTodoList = () => {
     this.setState({ todoList: JSON.parse(localStorage.getItem('todoList')) || [] })
   }
 
-  _resetForm = () => this.setState({ newTodo: this._getDefaultTodoItem() })
-  _getDefaultTodoItem() {
-    return {
-      id: '',
-      title: '',
-      deadline: '',
-      importance: '',
-      completedAt: '',
-      isDone: false,
-    }
-  }
+  _resetForm = () => this.setState({ newTodo: getDefaultTodoItem() })
 }
 
 export default App

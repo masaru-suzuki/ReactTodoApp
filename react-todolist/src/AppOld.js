@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import todoList from './TodoList.js'
+import todoList from './todo-list'
 import Board from './Board.js'
 import TodoForm from './TodoForm.js'
 
