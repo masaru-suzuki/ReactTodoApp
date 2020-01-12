@@ -10,10 +10,10 @@ function TodoForm(props) {
         <label className="col-sm-2 col-form-label">todo</label>
         <div className="col-sm-10">
           <input
-            name="title"
+            name="todo"
             id="todo"
             value={props.todoItem.title}
-            onChange={props.handleChange}
+            onChange={props.getTitle}
             className="form-control"
             type="text"
           />
@@ -22,17 +22,18 @@ function TodoForm(props) {
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">daedline</label>
         <div className="col-sm-4 form-group">
-          <div className="input-group date" id="datetimepicker4" data-target-input="nearest">
+          <div className="input-group date" id="datetimepicker" data-target-input="nearest">
             <input
               name="deadline"
               id="deadline"
               placeholder="2020-01-20"
               value={props.todoItem.deadline}
-              onChange={props.handleChange}
+              onChange={props.getDeadline}
               className="form-control datetimepicker-input"
               data-target="#datetimepicker4"
             />
             <div
+              id="datepicker"
               className="input-group-append"
               data-target="#datetimepicker4"
               data-toggle="datetimepicker"
@@ -53,7 +54,7 @@ function TodoForm(props) {
               name="importance"
               value="高"
               checked={props.todoItem.importance === '高'}
-              onChange={props.handleChange}
+              onChange={props.getImportance}
             />
             高
           </label>
@@ -63,7 +64,7 @@ function TodoForm(props) {
               name="importance"
               value="中"
               checked={props.todoItem.importance === '中'}
-              onChange={props.handleChange}
+              onChange={props.getImportance}
               className="ml-5"
             />
             中
@@ -74,7 +75,7 @@ function TodoForm(props) {
               name="importance"
               value="低"
               checked={props.todoItem.importance === '低'}
-              onChange={props.handleChange}
+              onChange={props.getImportance}
               className="ml-5"
             />
             低
