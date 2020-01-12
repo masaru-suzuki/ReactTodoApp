@@ -1,15 +1,16 @@
 import React from 'react'
+import shortId from 'shortid'
 import './App.css'
-import { initialTodoList } from './TodoList.js'
 import Board from './Board.js'
 import TodoForm from './TodoForm.js'
 
 class App extends React.Component {
-  currentId = initialTodoList.length
   state = {
-    todoList: initialTodoList,
+    todoList: [],
     newTodo: this._getDefaultTodoItem(),
   }
+
+  componentDidMount = () => this._initTodoList()
 
   handleChange = event =>
     this.setState({
@@ -21,10 +22,9 @@ class App extends React.Component {
 
   addTodoList = event => {
     event.preventDefault()
-    const newTodo = { ...this.state.newTodo, id: this.currentId }
-    this.setState({ todoList: [...this.state.todoList, newTodo] })
+    const newTodo = { ...this.state.newTodo, id: shortId() }
+    this.setState({ todoList: [...this.state.todoList, newTodo] }, this._syncLS)
     this._resetForm()
-    this._incrementCurrentId()
   }
 
   checkAction = index => {
@@ -44,7 +44,7 @@ class App extends React.Component {
   }
 
   deleteRow = index =>
-    this.setState({ todoList: this.state.todoList.filter((_, i) => i !== index) })
+    this.setState({ todoList: this.state.todoList.filter((_, i) => i !== index) }, this._syncLS)
 
   render() {
     return (
@@ -67,7 +67,14 @@ class App extends React.Component {
     )
   }
 
-  _incrementCurrentId = () => this.currentId++
+  _syncLS() {
+    localStorage.setItem('todoList', JSON.stringify(this.state.todoList))
+  }
+
+  _initTodoList() {
+    this.setState({ todoList: JSON.parse(localStorage.getItem('todoList')) || [] })
+  }
+
   _resetForm = () => this.setState({ newTodo: this._getDefaultTodoItem() })
   _getDefaultTodoItem() {
     return {
