@@ -24,28 +24,27 @@ class App extends React.Component {
   addTodoList = event => {
     event.preventDefault()
     const newTodo = { ...this.state.newTodo, id: shortId() }
-    this.setState({ todoList: [...this.state.todoList, newTodo] }, this._syncLS)
+    this._updateTodoListAndLS([...this.state.todoList, newTodo])
     this._resetForm()
   }
 
   checkAction = index => {
     const newTodoList = [...this.state.todoList]
     const targetTodo = this.state.todoList[index]
-    const updatedTarget = {
+    const updatedTodo = {
       ...targetTodo,
       isDone: !targetTodo.isDone,
       completedAt: targetTodo.isDone ? '' : new Date().toLocaleDateString(),
     }
-    newTodoList[index] = updatedTarget
-    this.setState({ todoList: newTodoList })
+    newTodoList[index] = updatedTodo
+    this._updateTodoListAndLS(newTodoList)
   }
 
   clearCompletedTask = () => {
-    this.setState({ todoList: this.state.todoList.filter(({ isDone }) => !isDone) })
+    this._updateTodoListAndLS(this.state.todoList.filter(({ isDone }) => !isDone))
   }
 
-  deleteRow = index =>
-    this.setState({ todoList: this.state.todoList.filter((_, i) => i !== index) }, this._syncLS)
+  deleteRow = index => this._updateTodoListAndLS(this.state.todoList.filter((_, i) => i !== index))
 
   render() {
     return (
@@ -68,12 +67,16 @@ class App extends React.Component {
     )
   }
 
-  _syncLS = () => {
-    localStorage.setItem('todoList', JSON.stringify(this.state.todoList))
-  }
-
   _initTodoList = () => {
     this.setState({ todoList: JSON.parse(localStorage.getItem('todoList')) || [] })
+  }
+
+  _updateTodoListAndLS = todoList => {
+    this.setState({ todoList }, this._syncLS)
+  }
+
+  _syncLS = () => {
+    localStorage.setItem('todoList', JSON.stringify(this.state.todoList))
   }
 
   _resetForm = () => this.setState({ newTodo: getDefaultTodoItem() })
