@@ -15,9 +15,9 @@ function TodoForm(props) {
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">daedline</label>
         <div className="col-sm-4 form-group">
-          <div className="input-group date" id="datetimepicker4" data-target-input="nearest">
+          <div className="input-group date" id="datetimepicker" data-target-input="nearest">
             <input name="deadline" id="deadline" placeholder="2020-01-20" value={props.todoItem.deadline} onChange={props.getDeadline} className="form-control datetimepicker-input" data-target="#datetimepicker4"/>
-            <div className="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+            <div id="datepicker" className="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
               <div className="input-group-text"><i className="fa fa-calendar"></i></div>
             </div>
           </div>

@@ -4,8 +4,6 @@ import todoList from './TodoList.js'
 import Board from './Board.js'
 import TodoForm from './TodoForm.js'
 
-
-//didmountを明日
 class App extends React.Component {
   constructor() {
     super();
@@ -29,6 +27,9 @@ class App extends React.Component {
     this.getDeadline = this.getDeadline.bind(this);
     this.getImportance = this.getImportance.bind(this);
     this.addTodoList = this.addTodoList.bind(this);
+    this.sortByDeadline = this.sortByDeadline.bind(this);
+    this.sortByDeadline = this.sortByDeadline.bind(this);
+    this.sortByImportance = this.sortByImportance.bind(this);
 
   }
 
@@ -62,12 +63,11 @@ class App extends React.Component {
       id: this.getCurrentId(),
       title: event.target.todo.value,
       deadline:  event.target.deadline.value,
-      //importanceのvalueを取得できない
-      //できた！
       importance:  event.target.importance.value,
       completedAt: '',
       isDone: false,
     }
+    //copy作ってからpushする
     this.state.todoList.push(todo)
     this.setState(prevState => {
       return{
@@ -138,15 +138,40 @@ class App extends React.Component {
       }
     })
   }
+  compareDeadline(a,b) {
+    return a-b;
+  }
+  sortByDeadline() {
+    //todoListのデータを取得
+    const sortedTodoList = this.state.todoList.slice().sort(function(a,b) {
+      if(a.deadline > b.deadline) {
+        return 1;
+      } else {
+        return -1;
+      }
+    })
+    console.log(sortedTodoList)
+    //元の配列に戻すときはどうするのか？
+    //slice()でコピーを作ってから表示
+    //componentDidMountと競合しないか？
+    //元の配列を保持したままsetStateのデータをコピー
+    //
+  }
+  sortByImportance() {
+    const sortedTodoList = this.state.todoList.sort()
+    console.log(sortedTodoList)
+  }
+
   componentDidUpdate() {
     localStorage.setItem('todoList',JSON.stringify(this.state.todoList))
   }
+
   componentDidMount() {
     this.setState({
-        todoList: JSON.parse(localStorage.getItem('todoList'))
+        todoList: JSON.parse(localStorage.getItem('todoList')) || []
     })
-
   }
+
   render() {
     return(
       <div className="container container-form mt-5">
@@ -162,6 +187,8 @@ class App extends React.Component {
           deleteRow = {this.deleteRow}
           checkAction = {this.checkAction}
           clearCompletedTask = {this.clearCompletedTask}
+          sortByDeadline = {this.sortByDeadline}
+          sortByImportance = {this.sortByImportance}
         />
       </div>
 

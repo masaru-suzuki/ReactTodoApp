@@ -1,5 +1,5 @@
 import React from 'react';
-import Row from './Row'
+import Row from './Row';
 function Board(props) {
   const todoList = props.todoList.map(todo => {
     return(
@@ -10,7 +10,7 @@ function Board(props) {
         checkAction = {props.checkAction}
       />
     )
-  })
+  });
   return(
     <React.Fragment>
       <table className="table mt-5">
@@ -18,8 +18,8 @@ function Board(props) {
         <tr>
           <th>check</th>
           <th>todo</th>
-          <th id="sort-deadline">deadline<i className="fas fa-sort"></i></th>
-          <th id="sort-importance">importance <i className="fas fa-sort"></i></th>
+          <th id="sort-deadline" onClick={props.sortByDeadline}>deadline<i className="fas fa-sort"></i></th>
+          <th id="sort-importance" onClick={props.sortByImportance}>importance <i className="fas fa-sort"></i></th>
           <th>Completion date</th>
           <th>Delete button</th>
         </tr>
