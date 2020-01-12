@@ -5,7 +5,7 @@ import Board from './Board.js'
 import TodoForm from './TodoForm.js'
 
 class App extends React.Component {
-  currentId = 0
+  currentId = initialTodoList.length
   state = {
     todoList: initialTodoList,
     newTodo: this._getDefaultTodoItem(),
@@ -21,7 +21,7 @@ class App extends React.Component {
 
   addTodoList = event => {
     event.preventDefault()
-    const newTodo = { id: this.currentId, ...this.state.newTodo }
+    const newTodo = { ...this.state.newTodo, id: this.currentId }
     this.setState({ todoList: [...this.state.todoList, newTodo] })
     this._resetForm()
     this._incrementCurrentId()
