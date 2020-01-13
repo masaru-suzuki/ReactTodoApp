@@ -32,4 +32,5 @@ export const getDefaultTodoItem = () => ({
   importance: '',
   completedAt: '',
   isDone: false,
+  createdAt: '',
 })

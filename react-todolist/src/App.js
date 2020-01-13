@@ -8,8 +8,8 @@ import { getDefaultTodoItem } from './todo-list'
 
 class App extends React.Component {
   state = {
-    sortByDeadlineBtn: false,
-    sorByImportanceBtn: false,
+    sortByDeadlineBtn: true,
+    sortByImportanceBtn: true,
     todoList: [],
     newTodo: getDefaultTodoItem(),
   }
@@ -29,10 +29,9 @@ class App extends React.Component {
 
   addTodoList = event => {
     event.preventDefault()
-    const newTodo = { ...this.state.newTodo, id: shortId() }
+    const newTodo = { ...this.state.newTodo, id: shortId(), createdAt: Date.now(), }
     this._updateTodoListAndLS([...this.state.todoList, newTodo])
     this._resetForm()
-    console.log(this.state.todoList)
   }
 
   checkAction = index => {
@@ -49,7 +48,7 @@ class App extends React.Component {
 
   sortByDeadline = () => {
     const newTodoList = [...this.state.todoList];
-    const sortedTodoList = newTodoList.slice().sort(function(a, b) {
+    const sortedTodoList = newTodoList.slice().sort((a, b) => {
       if(a.deadline < b.deadline){
         return -1;
     }else if(a.deadline > b.deadline){
@@ -57,14 +56,31 @@ class App extends React.Component {
     }
     return 0;
     })
-    if(this.state.sortByDeadlineBtn){
-      this.setState({todoList: sortedTodoList,sortByDeadlineBtn: false})
-    }else {
-      this.setState({todoList: newTodoList,sortByDeadlineBtn: true})
+    const originTodoList = newTodoList.slice().sort((a, b) => a.createdAt - b.createdAt)
+
+    if (this.state.sortByDeadlineBtn === true) {
+      this.setState({todoList: sortedTodoList, sortByDeadlineBtn: false})
+    } else {
+      this.setState({todoList: originTodoList, sortByDeadlineBtn: true})
     }
-    console.log(sortedTodoList);
-    console.log(this.state.todoList);
-    console.log(this.state.sortByDeadlineBtn)
+  }
+  sortByImportance = () => {
+    const newTodoList = [...this.state.todoList];
+    const sortedTodoList = newTodoList.slice().sort(function(a, b) {
+      const IMPORTANCE = ['高', '中', '低'];
+      if(IMPORTANCE.indexOf(a.importance) < IMPORTANCE.indexOf(b.importance)){
+        return -1;
+    }else if(IMPORTANCE.indexOf(a.importance) > IMPORTANCE.indexOf(b.importance)){
+        return 1;
+    }
+    return 0;
+    })
+    const originTodoList = newTodoList.slice().sort((a, b) => a.createdAt - b.createdAt)
+    if (this.state.sortByImportanceBtn === true) {
+      this.setState({todoList: sortedTodoList, sortByImportanceBtn: false})
+    } else {
+      this.setState({todoList: originTodoList, sortByImportanceBtn: true})
+    }
   }
 
   clearCompletedTask = () => {
@@ -90,7 +106,7 @@ class App extends React.Component {
           checkAction={this.checkAction}
           clearCompletedTask={this.clearCompletedTask}
           sortByDeadline = {this.sortByDeadline}
-          sorByImportance = {this.sorByImportance}
+          sortByImportance = {this.sortByImportance}
         />
       </div>
     )
@@ -99,20 +115,12 @@ class App extends React.Component {
   _initTodoList = () => {
     this.setState({ todoList: JSON.parse(localStorage.getItem('todoList')) || [] })
   }
-  _compareFunc = (a, b) => {
-    if(a.deadline < b.deadline){
-      return -1;
-  }else if(a.deadline > b.deadline){
-      return 1;
-  }
-  return 0;
-  }
 
   _updateTodoListAndLS = todoList => {
     //処理を,を使って並列に並べることもできる
     //なんでsetStateのなかでthis._syncLSをしたのか？
     this.setState({ todoList }, this._syncLS)
-    console.log(this.state.todoList)
+    console.log(todoList)
   }
 
   _syncLS = () => {
