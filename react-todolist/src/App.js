@@ -17,9 +17,9 @@ class App extends React.Component {
   componentDidMount = () => this._initTodoList()
 
   handleChange = event => {
+    console.log(event.target.name)
     this.setState({
       newTodo: {
-        //...ってどういう使い方なの？newTodoが複数あるときのため？
         ...this.state.newTodo,
         //このまとめ方できるようになりたい
         [event.target.name]: event.target.value,
@@ -56,6 +56,7 @@ class App extends React.Component {
     }
     return 0;
     })
+    //createdAtをデータスタンプに直せば、 a.createdAt - b.createdAtと省略できる
     const originTodoList = newTodoList.slice().sort((a, b) => a.createdAt - b.createdAt)
 
     if (this.state.sortByDeadlineBtn === true) {

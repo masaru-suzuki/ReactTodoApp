@@ -26,11 +26,11 @@ function TodoForm(props) {
             <input
               name="deadline"
               id="deadline"
-              placeholder="2020-01-20"
+              type="text"
+              placeholder="2020年1月20日"
               value={props.todoItem.deadline}
               onChange={props.handleChange}
               className="form-control datetimepicker-input"
-              data-target="#datetimepicker4"
             />
             <div
               className="input-group-append"
