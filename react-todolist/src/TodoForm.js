@@ -1,9 +1,7 @@
 import React from 'react'
+
 function TodoForm(props) {
-  //{id: 0, title: '風呂掃除', deadline: '2020-01-20', importance: '高',completedAt: '', isDone: false}の形で、情報を取得
-  //formにonSubmitでaddTodoListを作る
-  //かくinputのvalueの更新ができない  => onChange={ e => this.setState({selectedValue: e.target.value}) }>
-  //Warning: Failed prop type: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.
+
   return (
     <form name="form" id="js-form" onSubmit={props.addTodoList}>
       <div className="form-group row">
@@ -87,5 +85,5 @@ function TodoForm(props) {
     </form>
   )
 }
-
 export default TodoForm
+
