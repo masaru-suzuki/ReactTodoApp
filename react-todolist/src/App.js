@@ -6,6 +6,7 @@ import Board from './Board.js'
 import TodoForm from './TodoForm.js'
 import { getDefaultTodoItem } from './todo-list'
 
+
 class App extends React.Component {
   state = {
     sortByDeadlineBtn: true,
@@ -17,12 +18,20 @@ class App extends React.Component {
   componentDidMount = () => this._initTodoList()
 
   handleChange = event => {
-    console.log(event.target.name)
+    console.log(event.target.value)
     this.setState({
       newTodo: {
         ...this.state.newTodo,
         //このまとめ方できるようになりたい
         [event.target.name]: event.target.value,
+      },
+    })
+  }
+  setDeadline = (value, date) => {
+    this.setState({
+      newTodo: {
+        ...this.state.newTodo,
+        deadline: value,
       },
     })
   }
@@ -100,6 +109,7 @@ class App extends React.Component {
           getDeadline={this.getDeadline}
           getImportance={this.getImportance}
           addTodoList={this.addTodoList}
+          setDeadline={this.setDeadline}
         />
         <Board
           todoList={this.state.todoList}

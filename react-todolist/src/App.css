@@ -23,3 +23,8 @@ th {
 #sort-importance,#sort-deadline {
   cursor: pointer;
 }
+.App > input[value] {
+  font-weight: normal;
+  font-size: 90%;
+  opacity: 0.6;
+}
