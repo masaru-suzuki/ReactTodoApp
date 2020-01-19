@@ -17,17 +17,14 @@ function TodoForm(props) {
           />
         </div>
       </div>
-      <div className="App">
-
-      </div>
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">daedline</label>
         <div className="App ml-3">
           <Pickadate.InputPicker
             onChangeValue={({ value, date }) => {
-            props.setDeadline(value,date)
-          }}
-            />
+              props.setDeadline(value,date)
+            }}
+          />
         </div>
       </div>
       <div className="form-group row">
