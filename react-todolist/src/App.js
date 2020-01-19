@@ -9,6 +9,7 @@ import { getDefaultTodoItem } from './todo-list'
 
 class App extends React.Component {
   state = {
+    startDate: new Date(),
     sortByDeadlineBtn: true,
     sortByImportanceBtn: true,
     todoList: [],
