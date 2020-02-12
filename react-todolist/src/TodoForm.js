@@ -22,7 +22,7 @@ function TodoForm(props) {
         <div className="App ml-3">
           <Pickadate.InputPicker
             onChangeValue={({ value, date }) => {
-              props.setDeadline(value,date)
+              props.setDeadline(value, date)
             }}
           />
         </div>
@@ -71,4 +71,3 @@ function TodoForm(props) {
   )
 }
 export default TodoForm
-
