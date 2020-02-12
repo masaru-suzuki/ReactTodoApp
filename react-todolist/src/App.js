@@ -1,5 +1,4 @@
 import React from 'react'
-//shortIdって何？
 import shortId from 'shortid'
 import './App.css'
 import Board from './Board.js'
@@ -64,7 +63,6 @@ class App extends React.Component {
       }
       return 0
     })
-    //createdAtをデータスタンプに直せば、 a.createdAt - b.createdAtと省略できる
     const originTodoList = newTodoList.slice().sort((a, b) => a.createdAt - b.createdAt)
 
     if (this.state.sortByDeadlineBtn === true) {
@@ -126,7 +124,6 @@ class App extends React.Component {
   }
 
   _updateTodoListAndLS = todoList => {
-    //処理を,を使って並列に並べることもできる
     this.setState({ todoList }, this._syncLS)
     console.log(todoList)
   }
