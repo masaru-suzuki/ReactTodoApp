@@ -18,13 +18,13 @@ function Row(props) {
       <td>{props.todo.importance}</td>
       <td>{props.todo.completedAt}</td>
       <td>
-        <a
+        <button
           href="#"
           className="btn btn-secondary btn-sm delete"
           onClick={() => props.deleteRow(props.index)}
         >
           X
-        </a>
+        </button>
       </td>
     </tr>
   )
