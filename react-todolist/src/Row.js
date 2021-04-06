@@ -9,9 +9,7 @@ function Row(props) {
           className="checkbox"
           checked={props.todo.isDone}
           onChange={() => {
-            {
-              props.checkAction(props.index)
-            }
+            props.checkAction(props.index)
           }}
         />
       </td>
