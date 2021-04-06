@@ -1,5 +1,7 @@
 # ReactTodoApp
 Reactの公式チュートリアルを終えたので、知識のアウトプットのために作成。
+# deploy
+https://hardcore-ardinghelli-73ffe8.netlify.app/
 
 <機能>
 
